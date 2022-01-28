@@ -1,27 +1,24 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-export default function Statistics({
-  good,
-  neutral,
-  bad,
-  total,
-  positivePercentage = 0,
-}) {
+export default function Statistics({ positivePercentage, ...Other }) {
   return (
     <div>
-      <p>Good: {good} </p>
-      <p>Neutral: {neutral}</p>
-      <p>Bad: {bad}</p>
-      <p>Total: {total}</p>
+      {Object.keys(Other).map(prop => (
+        <p key={prop}>
+          {prop}: {Other[prop]}
+        </p>
+      ))}
       <p> Positive Feedback: {positivePercentage}%</p>
     </div>
   );
 }
 
 Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  Other: PropTypes.shape({
+    Good: PropTypes.number.isRequired,
+    Neutral: PropTypes.number.isRequired,
+    Bad: PropTypes.number.isRequired,
+    Total: PropTypes.number.isRequired,
+  }),
   positivePercentage: PropTypes.number.isRequired,
 };
