@@ -15,20 +15,22 @@ class App extends Component {
     const { name } = e.target;
     this.setState(prevState => ({ [name]: prevState[name] + 1 }));
   };
-  countTotalFeedback = () =>
-    this.state.Good + this.state.Neutral + this.state.Bad;
+  countTotalFeedback = () => {
+    const { Good, Neutral, Bad } = this.state;
+    return Good + Neutral + Bad;
+  };
 
   countPositiveFeedbackPercentage = () =>
     Math.round((this.state.Good * 100) / this.countTotalFeedback());
 
   render() {
-    console.log(Object.keys(this.state));
+    const options = Object.keys(this.state);
     return (
       <>
         <Section>
           <h2>Please leave Feedback</h2>
           <FeedbackOptions
-            options={Object.keys(this.state)}
+            options={options}
             onLeaveFeedback={this.handleIncrementFeedback}
           />
         </Section>
